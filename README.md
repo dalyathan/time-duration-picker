@@ -17,11 +17,6 @@ A time picker for paired consecutive tasks. It lets you specify the icons for ea
 
 [](demo.gif)
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
 ## Usage
 
 TODO: Include short and useful examples for package users. Add longer examples

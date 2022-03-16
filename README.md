@@ -23,7 +23,20 @@ TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
 ```dart
-const like = 'sample';
+TimeDurationPicker(
+                  diameter: 300,
+                  icon1Data: Icons.notifications_none,
+                  icon2Data: Icons.bed,
+                  onIcon1RotatedCallback: (value) {
+                    setState(() {
+                      alarmTime = value;
+                    });
+                  },
+                  onIcon2RotatedCallback: (value) {
+                    setState(() {
+                      bedTime = value;
+                    });
+                  })
 ```
 
 ## Additional information

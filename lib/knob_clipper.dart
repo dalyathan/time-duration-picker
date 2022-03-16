@@ -42,8 +42,8 @@ class KnobClipper extends CustomClipper<Path> {
           ),
           radius: brushSize * 0.5));
     Path outerCirclePath = Path()
-      ..arcTo(Rect.fromCircle(center: center, radius: radius),
-          startAngle - pi / 2, sweepAngle, false);
+      ..addArc(Rect.fromCircle(center: center, radius: radius),
+          startAngle - pi / 2, sweepAngle);
     return Path.combine(
         PathOperation.union,
         startIconBackground,

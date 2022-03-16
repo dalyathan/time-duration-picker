@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:clock_range_slider/clock_calc.dart';
+import 'package:time_duration_picker/clock_calc.dart';
 import 'package:flutter/material.dart';
 
 import 'knob_clipper.dart';

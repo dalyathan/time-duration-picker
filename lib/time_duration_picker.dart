@@ -1,11 +1,11 @@
-library clock_range_slider;
+library time_duration_picker;
 
 import 'package:flutter/material.dart';
 
 import 'clock.dart';
 import 'knob.dart';
 
-class ClockRangeSlider extends StatelessWidget {
+class TimeDurationPicker extends StatelessWidget {
   final IconData icon1Data;
   final IconData icon2Data;
   final double diameter;
@@ -17,7 +17,7 @@ class ClockRangeSlider extends StatelessWidget {
   final BoxDecoration? knobBackgroundDecoration;
   final TextStyle? clockTextStyle;
 
-  const ClockRangeSlider(
+  const TimeDurationPicker(
       {Key? key,
       required this.icon1Data,
       required this.icon2Data,

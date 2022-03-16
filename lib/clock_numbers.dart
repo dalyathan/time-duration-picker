@@ -9,7 +9,7 @@ class ClockNumbers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle =
-        clockTextStyle ?? TextStyle(fontWeight: FontWeight.bold);
+        clockTextStyle ?? const TextStyle(fontWeight: FontWeight.bold);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

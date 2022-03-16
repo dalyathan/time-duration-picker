@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clock_range_slider/clock_range_slider.dart';
+import 'package:time_duration_picker/time_duration_picker.dart';
 
 import 'alarm_description.dart';
 
@@ -35,7 +35,7 @@ class _SetAlarmState extends State<SetAlarm> {
               children: [
                 //const SetAlarmTopRow(),
                 SizedBox(height: size.height * smallerMarginRatio),
-                ClockRangeSlider(
+                TimeDurationPicker(
                   diameter: size.width * 0.775,
                   icon1Data: Icons.notifications_none,
                   icon2Data: Icons.bed,

@@ -13,8 +13,8 @@ class ClockRangeSlider extends StatelessWidget {
   final void Function(String) onIcon2RotatedCallback;
   final Color iconColor;
   final void Function(String)? setDurationCallback;
-  final double? clockDiameter;
-  final BoxDecoration? ringDecoration;
+  final BoxDecoration? knobDecoration;
+  final BoxDecoration? knobBackgroundDecoration;
   final TextStyle? clockTextStyle;
 
   const ClockRangeSlider(
@@ -24,9 +24,9 @@ class ClockRangeSlider extends StatelessWidget {
       required this.diameter,
       required this.onIcon1RotatedCallback,
       required this.onIcon2RotatedCallback,
-      required this.iconColor,
-      this.clockDiameter,
-      this.ringDecoration,
+      this.iconColor = Colors.white,
+      this.knobDecoration,
+      this.knobBackgroundDecoration,
       this.clockTextStyle,
       this.setDurationCallback})
       : super(key: key);
@@ -42,44 +42,39 @@ class ClockRangeSlider extends StatelessWidget {
     assert(knobInnerRadiusRatio < knobOuterRadiusRatio &&
         knobOuterRadiusRatio < 1);
     return Container(
-      width: diameter,
-      height: diameter,
-      child: Stack(
-        children: [
-          Knob(
-            radius: diameter,
-            innerRadiusRatio: knobInnerRadiusRatio,
-            outerRadiusRatio: knobOuterRadiusRatio,
-            onIcon1RotatedCallback: onIcon1RotatedCallback,
-            onIcon2RotatedCallback: onIcon2RotatedCallback,
-            icon1Data: icon1Data,
-            icon2Data: icon2Data,
-            iconColor: iconColor,
-            ringDecoration: ringDecoration,
-          ),
-          Padding(
-            padding: EdgeInsets.all(diameter * gapRatio),
-            child: Center(
-              child: Clock(
-                radius: diameter * clockRatio,
+        width: diameter,
+        height: diameter,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Knob(
+              radius: diameter,
+              innerRadiusRatio: knobInnerRadiusRatio,
+              outerRadiusRatio: knobOuterRadiusRatio,
+              onIcon1RotatedCallback: onIcon1RotatedCallback,
+              onIcon2RotatedCallback: onIcon2RotatedCallback,
+              icon1Data: icon1Data,
+              icon2Data: icon2Data,
+              iconColor: iconColor,
+              knobDecoration: knobDecoration,
+              setDurationCallback: setDurationCallback,
+            ),
+            Padding(
+              padding: EdgeInsets.all(diameter * gapRatio),
+              child: Center(
+                child: Clock(
+                  radius: diameter * clockRatio,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Color.fromRGBO(218, 224, 238, 1),
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Colors.white,
-            Color.fromRGBO(218, 224, 238, 1),
           ],
-          stops: [0.1, 1],
         ),
-      ),
-    );
+        decoration: knobBackgroundDecoration != null
+            ? knobBackgroundDecoration!.copyWith(
+                shape: BoxShape.circle,
+              )
+            : const BoxDecoration(
+                shape: BoxShape.circle,
+              ));
   }
 }

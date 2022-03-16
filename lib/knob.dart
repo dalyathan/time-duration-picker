@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:clock_range_slider/clock_calc.dart';
 import 'package:flutter/material.dart';
 
-import 'knob_painter.dart';
+import 'knob_clipper.dart';
 
 class Knob extends StatefulWidget {
   final double radius;
@@ -15,7 +15,7 @@ class Knob extends StatefulWidget {
   final void Function(String) onIcon2RotatedCallback;
   final Color iconColor;
   void Function(String)? setDurationCallback;
-  BoxDecoration? ringDecoration;
+  BoxDecoration? knobDecoration;
   Knob(
       {Key? key,
       required this.radius,
@@ -27,7 +27,7 @@ class Knob extends StatefulWidget {
       required this.icon2Data,
       required this.iconColor,
       this.setDurationCallback,
-      this.ringDecoration})
+      this.knobDecoration})
       : super(key: key);
 
   @override
@@ -49,7 +49,7 @@ class _KnobState extends State<Knob> {
   void initState() {
     super.initState();
     knobWidthRatio = widget.outerRadiusRatio - widget.innerRadiusRatio;
-    iconWidthRatio = knobWidthRatio * 0.5;
+    iconWidthRatio = knobWidthRatio * 0.8;
     double centerOffset = widget.radius * (0.5 - iconWidthRatio * 0.5);
     boxCenter = Offset(centerOffset, centerOffset);
     icon1Offset = icon2Offset = Offset(
@@ -72,118 +72,111 @@ class _KnobState extends State<Knob> {
           padding: EdgeInsets.all(
               widget.radius * (1 - widget.outerRadiusRatio) * 0.5),
           child: ClipPath(
-            clipper: KnobPainter(
-              icon2Angle,
+            clipper: KnobClipper(
               icon1Angle,
+              icon2Angle,
               widget.radius *
                   (widget.outerRadiusRatio - widget.innerRadiusRatio),
             ),
             child: Container(
               height: widget.radius * widget.outerRadiusRatio,
               width: widget.radius * widget.outerRadiusRatio,
-              decoration: widget.ringDecoration != null
-                  ? widget.ringDecoration!.copyWith(shape: BoxShape.circle)
-                  : BoxDecoration(shape: BoxShape.circle),
+              decoration: widget.knobDecoration != null
+                  ? widget.knobDecoration!.copyWith(shape: BoxShape.circle)
+                  : const BoxDecoration(shape: BoxShape.circle),
             ),
           ),
         ),
         Positioned(
-            // key: bellIconKey,
-            top: icon1Offset.dy,
-            left: icon1Offset.dx,
-            child: GestureDetector(
-              onPanUpdate: (details) {
-                Offset currentLocation = Offset(
-                    icon1Offset.dx + details.delta.dx,
-                    icon1Offset.dy + details.delta.dy);
-                double x = currentLocation.dx - boxCenter.dx;
-                double y = boxCenter.dy - currentLocation.dy;
-                if (x >= 0) {
-                  double angle = pi / 2 - atan(y / x);
-                  setState(() {
-                    icon1Angle = angle;
-                    icon1Offset = getLocationOnCircle(currentLocation);
-                  });
-                } else {
-                  double angle = pi / 2 - atan(y / x) + pi;
-                  setState(() {
-                    icon1Angle = angle;
-                    icon1Offset = getLocationOnCircle(currentLocation);
-                  });
-                }
-                widget.onIcon1RotatedCallback(
-                    ClockCalculations.getTimeFromAngles(icon1Angle));
-                if (widget.setDurationCallback != null) {
-                  widget.setDurationCallback!(
-                      ClockCalculations.getDurationFromAngles(
-                          icon2Angle, icon1Angle));
-                }
-              },
-              child: Container(
-                width: widget.radius * iconWidthRatio,
-                height: widget.radius * iconWidthRatio,
-                decoration: widget.ringDecoration != null
-                    ? widget.ringDecoration!.copyWith(shape: BoxShape.circle)
-                    : BoxDecoration(shape: BoxShape.circle),
-                child: Center(
-                  key: icon1Key,
-                  child: Icon(
-                    widget.icon1Data,
-                    size: widget.radius * iconWidthRatio * 0.8,
-                    color: widget.iconColor,
-                  ),
+          // key: bellIconKey,
+          top: icon1Offset.dy,
+          left: icon1Offset.dx,
+          child: GestureDetector(
+            onPanUpdate: (details) {
+              Offset currentLocation = Offset(icon1Offset.dx + details.delta.dx,
+                  icon1Offset.dy + details.delta.dy);
+              double x = currentLocation.dx - boxCenter.dx;
+              double y = boxCenter.dy - currentLocation.dy;
+              if (x >= 0) {
+                double angle = pi / 2 - atan(y / x);
+                setState(() {
+                  icon1Angle = angle;
+                  icon1Offset = getLocationOnCircle(currentLocation);
+                });
+              } else {
+                double angle = pi / 2 - atan(y / x) + pi;
+                setState(() {
+                  icon1Angle = angle;
+                  icon1Offset = getLocationOnCircle(currentLocation);
+                });
+              }
+              widget.onIcon1RotatedCallback(
+                  ClockCalculations.getTimeFromAngles(icon1Angle));
+              if (widget.setDurationCallback != null) {
+                widget.setDurationCallback!(
+                    ClockCalculations.getDurationFromAngles(
+                        icon1Angle, icon2Angle));
+              }
+            },
+            child: SizedBox(
+              width: widget.radius * iconWidthRatio,
+              height: widget.radius * iconWidthRatio,
+              child: Center(
+                key: icon1Key,
+                child: Icon(
+                  widget.icon1Data,
+                  size: widget.radius * iconWidthRatio * 0.8,
+                  color: widget.iconColor,
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
         Positioned(
-            // key: bedIconKey,
-            top: icon2Offset.dy,
-            left: icon2Offset.dx,
-            child: GestureDetector(
-              onPanUpdate: (details) {
-                Offset currentLocation = Offset(
-                    icon2Offset.dx + details.delta.dx,
-                    icon2Offset.dy + details.delta.dy);
-                double x = currentLocation.dx - boxCenter.dx;
-                double y = boxCenter.dy - currentLocation.dy;
-                if (x >= 0) {
-                  double angle = pi / 2 - atan(y / x);
-                  setState(() {
-                    icon2Angle = angle;
-                    icon2Offset = getLocationOnCircle(currentLocation);
-                  });
-                } else {
-                  double angle = pi / 2 - atan(y / x) + pi;
-                  setState(() {
-                    icon2Angle = angle;
-                    icon2Offset = getLocationOnCircle(currentLocation);
-                  });
-                }
-                widget.onIcon2RotatedCallback(
-                    ClockCalculations.getTimeFromAngles(icon2Angle));
-                if (widget.setDurationCallback != null) {
-                  widget.setDurationCallback!(
-                      ClockCalculations.getDurationFromAngles(
-                          icon2Angle, icon1Angle));
-                }
-              },
-              child: Container(
-                width: iconWidthRatio * widget.radius,
-                height: iconWidthRatio * widget.radius,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: Center(
-                  key: icon2Key,
-                  child: Icon(
-                    widget.icon2Data,
-                    size: widget.radius * iconWidthRatio * 0.8,
-                    color: widget.iconColor,
-                  ),
+          // key: bedIconKey,
+          top: icon2Offset.dy,
+          left: icon2Offset.dx,
+          child: GestureDetector(
+            onPanUpdate: (details) {
+              Offset currentLocation = Offset(icon2Offset.dx + details.delta.dx,
+                  icon2Offset.dy + details.delta.dy);
+              double x = currentLocation.dx - boxCenter.dx;
+              double y = boxCenter.dy - currentLocation.dy;
+              if (x >= 0) {
+                double angle = pi / 2 - atan(y / x);
+                setState(() {
+                  icon2Angle = angle;
+                  icon2Offset = getLocationOnCircle(currentLocation);
+                });
+              } else {
+                double angle = pi / 2 - atan(y / x) + pi;
+                setState(() {
+                  icon2Angle = angle;
+                  icon2Offset = getLocationOnCircle(currentLocation);
+                });
+              }
+              widget.onIcon2RotatedCallback(
+                  ClockCalculations.getTimeFromAngles(icon2Angle));
+              if (widget.setDurationCallback != null) {
+                widget.setDurationCallback!(
+                    ClockCalculations.getDurationFromAngles(
+                        icon1Angle, icon2Angle));
+              }
+            },
+            child: SizedBox(
+              width: iconWidthRatio * widget.radius,
+              height: iconWidthRatio * widget.radius,
+              child: Center(
+                key: icon2Key,
+                child: Icon(
+                  widget.icon2Data,
+                  size: widget.radius * iconWidthRatio * 0.8,
+                  color: widget.iconColor,
                 ),
               ),
-            ))
+            ),
+          ),
+        )
       ],
     );
   }

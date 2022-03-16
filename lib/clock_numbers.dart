@@ -2,32 +2,36 @@ import 'package:flutter/material.dart';
 
 class ClockNumbers extends StatelessWidget {
   final double width;
-  const ClockNumbers({Key? key, required this.width}) : super(key: key);
+  TextStyle? clockTextStyle;
+  ClockNumbers({Key? key, required this.width, this.clockTextStyle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle =
+        clockTextStyle ?? TextStyle(fontWeight: FontWeight.bold);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
           padding: EdgeInsets.only(top: width * 0.05),
-          child: const Text(
+          child: Text(
             '12 AM',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: textStyle,
           ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 '10',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               ),
               Text(
                 '2',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               )
             ],
           ),
@@ -36,14 +40,14 @@ class ClockNumbers extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: width * 0.1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 '8',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               ),
               Text(
                 '4',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               )
             ],
           ),
@@ -52,14 +56,14 @@ class ClockNumbers extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: width * 0.05),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 '6 PM',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               ),
               Text(
                 '6 AM',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               )
             ],
           ),
@@ -68,14 +72,14 @@ class ClockNumbers extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: width * 0.1),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 '4',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               ),
               Text(
                 '8',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               )
             ],
           ),
@@ -84,23 +88,23 @@ class ClockNumbers extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: width * 0.2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 '2',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               ),
               Text(
                 '10',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: textStyle,
               )
             ],
           ),
         ),
         Padding(
           padding: EdgeInsets.only(bottom: width * 0.05),
-          child: const Text(
+          child: Text(
             '12 PM',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: textStyle,
           ),
         )
       ],

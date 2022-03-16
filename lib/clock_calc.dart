@@ -19,15 +19,7 @@ class ClockCalculations {
     if (hour == 0) {
       hour = 12;
     }
-    if (minutes < 10 && hour < 10) {
-      return "0$hour:0$minutes $median";
-    } else if (minutes >= 10 && hour < 10) {
-      return "0$hour:$minutes $median";
-    } else if (minutes < 10 && hour >= 10) {
-      return "$hour:0$minutes $median";
-    } else {
-      return "$hour:$minutes $median";
-    }
+    return "${hour < 10 ? '0$hour' : hour}:${minutes < 10 ? '0$minutes' : minutes} $median";
   }
 
   static String getDurationFromAngles(
@@ -41,6 +33,10 @@ class ClockCalculations {
     double totalHours = (totalAngle / (2 * pi)) * 24;
     int hourPart = totalHours.floor();
     int minutes = ((totalHours - hourPart) * 60).ceil();
+    if (minutes == 60) {
+      hourPart += 1;
+      minutes = 0;
+    }
     return "$hourPart hr $minutes min";
   }
 }

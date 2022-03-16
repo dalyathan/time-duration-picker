@@ -4,7 +4,9 @@ import 'clock_numbers.dart';
 
 class Clock extends StatelessWidget {
   final double radius;
-  const Clock({Key? key, required this.radius}) : super(key: key);
+  TextStyle? clockTextStyle;
+  Clock({Key? key, required this.radius, this.clockTextStyle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

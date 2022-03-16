@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ClockNumbers extends StatelessWidget {
   final double width;
-  TextStyle? clockTextStyle;
-  ClockNumbers({Key? key, required this.width, this.clockTextStyle})
+  final TextStyle? clockTextStyle;
+  const ClockNumbers({Key? key, required this.width, this.clockTextStyle})
       : super(key: key);
 
   @override

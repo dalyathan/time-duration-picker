@@ -4,8 +4,8 @@ import 'clock_numbers.dart';
 
 class Clock extends StatelessWidget {
   final double radius;
-  TextStyle? clockTextStyle;
-  Clock({Key? key, required this.radius, this.clockTextStyle})
+  final TextStyle? clockTextStyle;
+  const Clock({Key? key, required this.radius, this.clockTextStyle})
       : super(key: key);
 
   @override

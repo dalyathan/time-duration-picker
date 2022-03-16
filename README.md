@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-A time picker for paired consecutive tasks.
+A time picker for paired consecutive tasks. It lets you specify the icons for each of your actions and callbacks when the user rotates each icon. You can optionally give decorations for the knob, the knob background and also color for your icons.
 
 ## Features
 

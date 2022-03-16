@@ -59,7 +59,7 @@ class _KnobState extends State<Knob> {
                 (knobWidthRatio - iconWidthRatio) * 0.5),
         centerOffset);
     WidgetsBinding.instance!
-        .addPostFrameCallback((_) => initializeOffsetsAndAngles(context));
+        .addPostFrameCallback((_) => _initializeOffsetsAndAngles(context));
     icon1Angle = 0;
     icon2Angle = pi;
   }
@@ -101,13 +101,13 @@ class _KnobState extends State<Knob> {
                 double angle = pi / 2 - atan(y / x);
                 setState(() {
                   icon1Angle = angle;
-                  icon1Offset = getLocationOnCircle(currentLocation);
+                  icon1Offset = _getLocationOnCircle(currentLocation);
                 });
               } else {
                 double angle = pi / 2 - atan(y / x) + pi;
                 setState(() {
                   icon1Angle = angle;
-                  icon1Offset = getLocationOnCircle(currentLocation);
+                  icon1Offset = _getLocationOnCircle(currentLocation);
                 });
               }
               widget.onIcon1RotatedCallback(
@@ -146,13 +146,13 @@ class _KnobState extends State<Knob> {
                 double angle = pi / 2 - atan(y / x);
                 setState(() {
                   icon2Angle = angle;
-                  icon2Offset = getLocationOnCircle(currentLocation);
+                  icon2Offset = _getLocationOnCircle(currentLocation);
                 });
               } else {
                 double angle = pi / 2 - atan(y / x) + pi;
                 setState(() {
                   icon2Angle = angle;
-                  icon2Offset = getLocationOnCircle(currentLocation);
+                  icon2Offset = _getLocationOnCircle(currentLocation);
                 });
               }
               widget.onIcon2RotatedCallback(
@@ -181,7 +181,7 @@ class _KnobState extends State<Knob> {
     );
   }
 
-  Offset getLocationOnCircle(Offset currentLocation) {
+  Offset _getLocationOnCircle(Offset currentLocation) {
     //C= corner of box, A= top left corner of revolving icon, O= center of box
     //every corner is measured from c, so O=(widget.radius * 0.5,widget.radius * 0.5)
     double circleRadius = widget.radius *
@@ -205,14 +205,14 @@ class _KnobState extends State<Knob> {
     return newOffset;
   }
 
-  initializeOffsetsAndAngles(BuildContext context) {
+  _initializeOffsetsAndAngles(BuildContext context) {
     setState(() {
-      icon1Offset = translateAndRotate(icon1Offset, icon1Angle);
-      icon2Offset = translateAndRotate(icon2Offset, icon2Angle);
+      icon1Offset = _translateAndRotate(icon1Offset, icon1Angle);
+      icon2Offset = _translateAndRotate(icon2Offset, icon2Angle);
     });
   }
 
-  Offset translateAndRotate(Offset vector, double angleInRadians) {
+  Offset _translateAndRotate(Offset vector, double angleInRadians) {
     double normalizedAngle = angleInRadians - pi / 2;
     Offset offsetFromBoxCenter =
         Offset(vector.dx - boxCenter.dx, vector.dy - boxCenter.dy);

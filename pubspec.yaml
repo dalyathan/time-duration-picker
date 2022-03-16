@@ -1,7 +1,7 @@
 name: time_duration_picker
-description: A new Flutter package project.
+description: A time picker for paired consecutive tasks.
 version: 0.0.1-dev.1
-homepage:
+repository: https://github.com/surafelMelese/time-duration-picker.git
 
 environment:
   sdk: ">=2.16.1 <3.0.0"

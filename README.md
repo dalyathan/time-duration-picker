@@ -15,7 +15,7 @@ A time picker for paired consecutive tasks. It lets you specify the icons for ea
 
 ## Features
 
-![](demos/main_demo.gif)
+![](https://github.com/surafelMelese/time-duration-picker/raw/main/demos/main_demo.gif)
 
 ## Usage
 ```dart

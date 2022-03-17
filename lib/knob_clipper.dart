@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class KnobClipper extends CustomClipper<Path> {
-  double startAngle;
-  double endAngle;
+  final double startAngle;
+  final double endAngle;
   final double brushSize;
 
-  KnobClipper(this.startAngle, this.endAngle, this.brushSize);
+  const KnobClipper(this.startAngle, this.endAngle, this.brushSize);
   @override
   Path getClip(Size size) {
     double sweepAngle = endAngle - startAngle;

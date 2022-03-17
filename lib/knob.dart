@@ -14,9 +14,9 @@ class Knob extends StatefulWidget {
   final void Function(String) onIcon1RotatedCallback;
   final void Function(String) onIcon2RotatedCallback;
   final Color iconColor;
-  void Function(String)? setDurationCallback;
-  BoxDecoration? knobDecoration;
-  Knob(
+  final void Function(String)? setDurationCallback;
+  final BoxDecoration? knobDecoration;
+  const Knob(
       {Key? key,
       required this.radius,
       required this.innerRadiusRatio,

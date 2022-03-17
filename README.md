@@ -15,13 +15,9 @@ A time picker for paired consecutive tasks. It lets you specify the icons for ea
 
 ## Features
 
-[](demo.gif)
+![](main_demo.gif)
 
 ## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
 TimeDurationPicker(
                   diameter: 300,

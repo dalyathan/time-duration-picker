@@ -15,7 +15,7 @@ A time picker for paired consecutive tasks. It lets you specify the icons for ea
 
 ## Features
 
-![](main_demo.gif)
+![](demos/main_demo.gif)
 
 ## Usage
 ```dart

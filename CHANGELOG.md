@@ -1,3 +1,3 @@
-## 0.0.1-dev.2
+## 0.0.1-dev.3
 
-* TODO: Describe initial release.
+* TODO: Added doc file and sample gif.

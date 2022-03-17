@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-A time picker for paired consecutive tasks. It lets you specify the icons for each of your actions and callbacks when the user rotates each icon. You can optionally give decorations for the knob, the knob background and also color for your icons.
+A time picker for paired consecutive tasks. It lets you specify the icons for each of your actions and callbacks when the user rotates each icon. You can optionally give callback for the time duration, decorations for the knob, the knob background and also color for your icons. The time and duration values are not displayed by the TimeDurationPicker widget, instead they are passed to the callbacks provided.
 
 ## Features
 
@@ -20,23 +20,17 @@ A time picker for paired consecutive tasks. It lets you specify the icons for ea
 ## Usage
 ```dart
 TimeDurationPicker(
-                  diameter: 300,
-                  icon1Data: Icons.notifications_none,
-                  icon2Data: Icons.bed,
-                  onIcon1RotatedCallback: (value) {
-                    setState(() {
-                      alarmTime = value;
-                    });
-                  },
-                  onIcon2RotatedCallback: (value) {
-                    setState(() {
-                      bedTime = value;
-                    });
-                  })
+  diameter: 300,
+  icon1Data: Icons.notifications_none,
+  icon2Data: Icons.bed,
+  onIcon1RotatedCallback: (value) {
+    setState(() {
+      alarmTime = value;
+    });
+  },
+  onIcon2RotatedCallback: (value) {
+    setState(() {
+      bedTime = value;
+    });
+  })
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.

@@ -47,7 +47,6 @@ class _SetAlarmState extends State<SetAlarm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //const SetAlarmTopRow(),
                 SizedBox(height: size.height * smallerMarginRatio),
                 TimeDurationPicker(
                   diameter: size.width * 0.775,
@@ -55,6 +54,11 @@ class _SetAlarmState extends State<SetAlarm> {
                   icon2Data: Icons.bed,
                   knobDecoration: const BoxDecoration(
                       color: Color.fromRGBO(167, 153, 240, 1)),
+                  clockDecoration: const BoxDecoration(
+                      gradient: RadialGradient(colors: [
+                    Color.fromRGBO(167, 153, 240, 1),
+                    Colors.white
+                  ])),
                   knobBackgroundDecoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color.fromRGBO(218, 224, 238, 1),
@@ -86,18 +90,23 @@ class _SetAlarmState extends State<SetAlarm> {
                 ),
                 SizedBox(height: size.height * 2 * smallerMarginRatio),
                 SizedBox(
-                    width: size.width * 0.45,
-                    child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(sleepDuration,
-                            style: const TextStyle(
-                                color: Color.fromRGBO(
-                                  54,
-                                  61,
-                                  86,
-                                  1,
-                                ),
-                                fontWeight: FontWeight.bold)))),
+                  width: size.width * 0.45,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      sleepDuration,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(
+                          54,
+                          61,
+                          86,
+                          1,
+                        ),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: size.height * 2 * smallerMarginRatio),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +122,7 @@ class _SetAlarmState extends State<SetAlarm> {
                         width: size.width * 0.4,
                         time: alarmTime)
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -155,66 +164,80 @@ class _AlarmDescriptionState extends State<AlarmDescription> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: widget.width,
-        height: height,
-        decoration: BoxDecoration(
-            color: const Color.fromRGBO(252, 253, 255, 1),
-            borderRadius: BorderRadius.circular(widget.width * 0.25)),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: height * verticalPadding,
-              horizontal: widget.width * horizontalPadding),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  widget.iconData,
-                  color: const Color.fromRGBO(167, 153, 240, 1),
-                  size: height * 0.3,
+      width: widget.width,
+      height: height,
+      decoration: BoxDecoration(
+          color: const Color.fromRGBO(252, 253, 255, 1),
+          borderRadius: BorderRadius.circular(widget.width * 0.25)),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            vertical: height * verticalPadding,
+            horizontal: widget.width * horizontalPadding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              widget.iconData,
+              color: const Color.fromRGBO(167, 153, 240, 1),
+              size: height * 0.3,
+            ),
+            SizedBox(
+              width: widget.width * (1 - 2 * horizontalPadding) * 0.65,
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  widget.title,
+                  style: const TextStyle(
+                      color: Color.fromRGBO(
+                        54,
+                        61,
+                        86,
+                        1,
+                      ),
+                      fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  width: widget.width * (1 - 2 * horizontalPadding) * 0.65,
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(widget.title,
-                        style: const TextStyle(
-                            color: Color.fromRGBO(
-                              54,
-                              61,
-                              86,
-                              1,
-                            ),
-                            fontWeight: FontWeight.bold)),
+              ),
+            ),
+            SizedBox(
+              width: widget.width * (1 - 2 * horizontalPadding),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  widget.time,
+                  style: const TextStyle(
+                    color: Color.fromRGBO(
+                      54,
+                      61,
+                      86,
+                      1,
+                    ),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
-                    width: widget.width * (1 - 2 * horizontalPadding),
-                    child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(widget.time,
-                            style: const TextStyle(
-                                color: Color.fromRGBO(
-                                  54,
-                                  61,
-                                  86,
-                                  1,
-                                ),
-                                fontWeight: FontWeight.bold)))),
-                SizedBox(
-                    width: widget.width * (1 - 2 * horizontalPadding) * 0.45,
-                    child: const FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text("Tomorrow",
-                            style: TextStyle(
-                                color: Color.fromRGBO(
-                                  144,
-                                  158,
-                                  174,
-                                  1,
-                                ),
-                                fontWeight: FontWeight.bold))))
-              ]),
-        ));
+              ),
+            ),
+            SizedBox(
+              width: widget.width * (1 - 2 * horizontalPadding) * 0.45,
+              child: const FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  "Tomorrow",
+                  style: TextStyle(
+                    color: Color.fromRGBO(
+                      144,
+                      158,
+                      174,
+                      1,
+                    ),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

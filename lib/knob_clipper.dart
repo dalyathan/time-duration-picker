@@ -15,6 +15,7 @@ class KnobClipper extends CustomClipper<Path> {
     }
     double radius = size.width / 2;
     Offset center = Offset(radius, radius);
+
     Path trianglePath = Path()
       ..addPolygon([
         center,
@@ -27,6 +28,7 @@ class KnobClipper extends CustomClipper<Path> {
           radius * (1 - sin(endAngle + pi / 2)),
         ),
       ], false);
+
     Path startIconBackground = Path()
       ..addOval(Rect.fromCircle(
           center: Offset(
@@ -34,6 +36,7 @@ class KnobClipper extends CustomClipper<Path> {
             (radius - (radius - brushSize * 0.5) * sin(startAngle + pi / 2)),
           ),
           radius: brushSize * 0.5));
+
     Path endIconBackground = Path()
       ..addOval(Rect.fromCircle(
           center: Offset(
@@ -41,9 +44,11 @@ class KnobClipper extends CustomClipper<Path> {
             (radius - (radius - brushSize * 0.5) * sin(endAngle + pi / 2)),
           ),
           radius: brushSize * 0.5));
+
     Path outerCirclePath = Path()
       ..addArc(Rect.fromCircle(center: center, radius: radius),
           startAngle - pi / 2, sweepAngle);
+
     return Path.combine(
         PathOperation.union,
         startIconBackground,

@@ -159,10 +159,10 @@ packages:
   time_duration_picker:
     dependency: "direct dev"
     description:
-      name: time_duration_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1-dev.1"
+      path: ".."
+      relative: true
+    source: path
+    version: "0.0.1-dev.3"
   typed_data:
     dependency: transitive
     description:

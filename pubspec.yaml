@@ -1,6 +1,6 @@
 name: time_duration_picker
 description: A time picker for paired consecutive tasks. It lets you specify the icons for each of your actions and callbacks when the user rotates each icon.
-version: 0.0.1-dev.3
+version: 0.0.1-dev.4
 repository: https://github.com/surafelMelese/time-duration-picker.git
 
 environment:

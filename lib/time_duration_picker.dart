@@ -67,6 +67,7 @@ class TimeDurationPicker extends StatelessWidget {
                 child: Clock(
                   radius: diameter * clockRatio,
                   clockDecoration: clockDecoration,
+                  clockTextStyle: clockTextStyle,
                 ),
               ),
             ),

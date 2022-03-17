@@ -19,9 +19,7 @@ class Clock extends StatelessWidget {
       width: radius,
       height: radius,
       child: Center(
-        child: ClockNumbers(
-          width: radius,
-        ),
+        child: ClockNumbers(width: radius, clockTextStyle: clockTextStyle),
       ),
       decoration: clockDecoration != null
           ? clockDecoration!.copyWith(shape: BoxShape.circle)

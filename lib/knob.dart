@@ -48,6 +48,10 @@ class _KnobState extends State<Knob> {
   @override
   void initState() {
     super.initState();
+    _initalizeValues();
+  }
+
+  void _initalizeValues() {
     knobWidthRatio = widget.outerRadiusRatio - widget.innerRadiusRatio;
     iconWidthRatio = knobWidthRatio * 0.8;
     double centerOffset = widget.radius * (0.5 - iconWidthRatio * 0.5);
@@ -66,122 +70,130 @@ class _KnobState extends State<Knob> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: EdgeInsets.all(
-              widget.radius * (1 - widget.outerRadiusRatio) * 0.5),
-          child: ClipPath(
-            clipper: KnobClipper(
-              icon1Angle,
-              icon2Angle,
-              widget.radius *
-                  (widget.outerRadiusRatio - widget.innerRadiusRatio),
-            ),
-            child: Container(
-              height: widget.radius * widget.outerRadiusRatio,
-              width: widget.radius * widget.outerRadiusRatio,
-              decoration: widget.knobDecoration != null
-                  ? widget.knobDecoration!.copyWith(shape: BoxShape.circle)
-                  : const BoxDecoration(shape: BoxShape.circle),
+    return OrientationBuilder(builder: (context, orientation) {
+      return Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(
+                widget.radius * (1 - widget.outerRadiusRatio) * 0.5),
+            child: ClipPath(
+              clipper: KnobClipper(
+                icon1Angle,
+                icon2Angle,
+                widget.radius *
+                    (widget.outerRadiusRatio - widget.innerRadiusRatio),
+              ),
+              child: Container(
+                height: widget.radius * widget.outerRadiusRatio,
+                width: widget.radius * widget.outerRadiusRatio,
+                decoration: widget.knobDecoration != null
+                    ? widget.knobDecoration!.copyWith(shape: BoxShape.circle)
+                    : const BoxDecoration(shape: BoxShape.circle),
+              ),
             ),
           ),
-        ),
-        Positioned(
-          // key: bellIconKey,
-          top: icon1Offset.dy,
-          left: icon1Offset.dx,
-          child: GestureDetector(
-            onPanUpdate: (details) {
-              Offset currentLocation = Offset(icon1Offset.dx + details.delta.dx,
-                  icon1Offset.dy + details.delta.dy);
-              double x = currentLocation.dx - boxCenter.dx;
-              double y = boxCenter.dy - currentLocation.dy;
-              if (x >= 0) {
-                double angle = pi / 2 - atan(y / x);
-                setState(() {
-                  icon1Angle = angle;
-                  icon1Offset = _getLocationOnCircle(currentLocation);
-                });
-              } else {
-                double angle = pi / 2 - atan(y / x) + pi;
-                setState(() {
-                  icon1Angle = angle;
-                  icon1Offset = _getLocationOnCircle(currentLocation);
-                });
-              }
-              widget.onIcon1RotatedCallback(
-                  ClockCalculations.getTimeFromAngles(icon1Angle));
-              if (widget.setDurationCallback != null) {
-                widget.setDurationCallback!(
-                    ClockCalculations.getDurationFromAngles(
-                        icon1Angle, icon2Angle));
-              }
-            },
-            child: SizedBox(
-              width: widget.radius * iconWidthRatio,
-              height: widget.radius * iconWidthRatio,
-              child: Center(
-                key: icon1Key,
-                child: Icon(
-                  widget.icon1Data,
-                  size: widget.radius * iconWidthRatio * 0.8,
-                  color: widget.iconColor,
+          Positioned(
+            // key: bellIconKey,
+            top: icon1Offset.dy,
+            left: icon1Offset.dx,
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                Offset currentLocation = Offset(
+                    icon1Offset.dx + details.delta.dx,
+                    icon1Offset.dy + details.delta.dy);
+                double x = currentLocation.dx - boxCenter.dx;
+                double y = boxCenter.dy - currentLocation.dy;
+                if (x >= 0) {
+                  double angle = pi / 2 - atan(y / x);
+                  setState(() {
+                    icon1Angle = angle;
+                    icon1Offset =
+                        _getLocationOnCircle(currentLocation, context);
+                  });
+                } else {
+                  double angle = pi / 2 - atan(y / x) + pi;
+                  setState(() {
+                    icon1Angle = angle;
+                    icon1Offset =
+                        _getLocationOnCircle(currentLocation, context);
+                  });
+                }
+                widget.onIcon1RotatedCallback(
+                    ClockCalculations.getTimeFromAngles(icon1Angle));
+                if (widget.setDurationCallback != null) {
+                  widget.setDurationCallback!(
+                      ClockCalculations.getDurationFromAngles(
+                          icon1Angle, icon2Angle));
+                }
+              },
+              child: SizedBox(
+                width: widget.radius * iconWidthRatio,
+                height: widget.radius * iconWidthRatio,
+                child: Center(
+                  key: icon1Key,
+                  child: Icon(
+                    widget.icon1Data,
+                    size: widget.radius * iconWidthRatio * 0.8,
+                    color: widget.iconColor,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          // key: bedIconKey,
-          top: icon2Offset.dy,
-          left: icon2Offset.dx,
-          child: GestureDetector(
-            onPanUpdate: (details) {
-              Offset currentLocation = Offset(icon2Offset.dx + details.delta.dx,
-                  icon2Offset.dy + details.delta.dy);
-              double x = currentLocation.dx - boxCenter.dx;
-              double y = boxCenter.dy - currentLocation.dy;
-              if (x >= 0) {
-                double angle = pi / 2 - atan(y / x);
-                setState(() {
-                  icon2Angle = angle;
-                  icon2Offset = _getLocationOnCircle(currentLocation);
-                });
-              } else {
-                double angle = pi / 2 - atan(y / x) + pi;
-                setState(() {
-                  icon2Angle = angle;
-                  icon2Offset = _getLocationOnCircle(currentLocation);
-                });
-              }
-              widget.onIcon2RotatedCallback(
-                  ClockCalculations.getTimeFromAngles(icon2Angle));
-              if (widget.setDurationCallback != null) {
-                widget.setDurationCallback!(
-                    ClockCalculations.getDurationFromAngles(
-                        icon1Angle, icon2Angle));
-              }
-            },
-            child: SizedBox(
-              width: iconWidthRatio * widget.radius,
-              height: iconWidthRatio * widget.radius,
-              child: Center(
-                key: icon2Key,
-                child: Icon(
-                  widget.icon2Data,
-                  size: widget.radius * iconWidthRatio * 0.8,
-                  color: widget.iconColor,
+          Positioned(
+            // key: bedIconKey,
+            top: icon2Offset.dy,
+            left: icon2Offset.dx,
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                Offset currentLocation = Offset(
+                    icon2Offset.dx + details.delta.dx,
+                    icon2Offset.dy + details.delta.dy);
+                double x = currentLocation.dx - boxCenter.dx;
+                double y = boxCenter.dy - currentLocation.dy;
+                if (x >= 0) {
+                  double angle = pi / 2 - atan(y / x);
+                  setState(() {
+                    icon2Angle = angle;
+                    icon2Offset =
+                        _getLocationOnCircle(currentLocation, context);
+                  });
+                } else {
+                  double angle = pi / 2 - atan(y / x) + pi;
+                  setState(() {
+                    icon2Angle = angle;
+                    icon2Offset =
+                        _getLocationOnCircle(currentLocation, context);
+                  });
+                }
+                widget.onIcon2RotatedCallback(
+                    ClockCalculations.getTimeFromAngles(icon2Angle));
+                if (widget.setDurationCallback != null) {
+                  widget.setDurationCallback!(
+                      ClockCalculations.getDurationFromAngles(
+                          icon1Angle, icon2Angle));
+                }
+              },
+              child: SizedBox(
+                width: iconWidthRatio * widget.radius,
+                height: iconWidthRatio * widget.radius,
+                child: Center(
+                  key: icon2Key,
+                  child: Icon(
+                    widget.icon2Data,
+                    size: widget.radius * iconWidthRatio * 0.8,
+                    color: widget.iconColor,
+                  ),
                 ),
               ),
             ),
-          ),
-        )
-      ],
-    );
+          )
+        ],
+      );
+    });
   }
 
-  Offset _getLocationOnCircle(Offset currentLocation) {
+  Offset _getLocationOnCircle(Offset currentLocation, BuildContext context) {
     //C= corner of box, A= top left corner of revolving icon, O= center of box
     //every corner is measured from c, so O=(widget.radius * 0.5,widget.radius * 0.5)
     double circleRadius = widget.radius *
@@ -202,7 +214,10 @@ class _KnobState extends State<Knob> {
     // new CA= OA + CO
     Offset newOffset = Offset(
         boxCenter.dx + vectorFromCenter.dx, boxCenter.dy + vectorFromCenter.dy);
+    // if (MediaQuery.of(context).orientation == Orientation.portrait) {
     return newOffset;
+    // }
+    // return Offset(newOffset.dy, newOffset.dx);
   }
 
   _initializeOffsetsAndAngles(BuildContext context) {

@@ -15,7 +15,7 @@ A time picker for paired consecutive tasks. It lets you specify the icons for ea
 
 ## Features
 
-[](demo.gif)
+![](demo.gif)
 
 ## Usage
 

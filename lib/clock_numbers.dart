@@ -8,7 +8,7 @@ class ClockNumbers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = width * 0.06;
+    double fontSize = width * 0.075;
     TextStyle textStyle = clockTextStyle != null
         ? clockTextStyle!.copyWith(fontSize: fontSize)
         : TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize);

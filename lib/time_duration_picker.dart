@@ -43,42 +43,50 @@ class TimeDurationPicker extends StatelessWidget {
     double knobOuterRadiusRatio = knobInnerRadiusRatio + knobWidth;
     assert(knobInnerRadiusRatio < knobOuterRadiusRatio &&
         knobOuterRadiusRatio < 1);
-    return Container(
-        width: diameter,
-        height: diameter,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Knob(
-              radius: diameter,
-              innerRadiusRatio: knobInnerRadiusRatio,
-              outerRadiusRatio: knobOuterRadiusRatio,
-              onIcon1RotatedCallback: onIcon1RotatedCallback,
-              onIcon2RotatedCallback: onIcon2RotatedCallback,
-              icon1Data: icon1Data,
-              icon2Data: icon2Data,
-              iconColor: iconColor,
-              knobDecoration: knobDecoration,
-              setDurationCallback: setDurationCallback,
-            ),
-            Padding(
-              padding: EdgeInsets.all(diameter * gapRatio),
-              child: Center(
-                child: Clock(
-                  radius: diameter * clockRatio,
-                  clockDecoration: clockDecoration,
-                  clockTextStyle: clockTextStyle,
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (diameter <= constraints.maxWidth &&
+          diameter <= constraints.maxHeight) {
+        return Container(
+            width: diameter,
+            height: diameter,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Knob(
+                  radius: diameter,
+                  innerRadiusRatio: knobInnerRadiusRatio,
+                  outerRadiusRatio: knobOuterRadiusRatio,
+                  onIcon1RotatedCallback: onIcon1RotatedCallback,
+                  onIcon2RotatedCallback: onIcon2RotatedCallback,
+                  icon1Data: icon1Data,
+                  icon2Data: icon2Data,
+                  iconColor: iconColor,
+                  knobDecoration: knobDecoration,
+                  setDurationCallback: setDurationCallback,
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.all(diameter * gapRatio),
+                  child: Center(
+                    child: Clock(
+                      radius: diameter * clockRatio,
+                      clockDecoration: clockDecoration,
+                      clockTextStyle: clockTextStyle,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-        decoration: knobBackgroundDecoration != null
-            ? knobBackgroundDecoration!.copyWith(
-                shape: BoxShape.circle,
-              )
-            : const BoxDecoration(
-                shape: BoxShape.circle,
-              ));
+            decoration: knobBackgroundDecoration != null
+                ? knobBackgroundDecoration!.copyWith(
+                    shape: BoxShape.circle,
+                  )
+                : const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ));
+      }
+      throw Exception(
+          "Max allowed size is ${constraints.maxWidth < constraints.maxHeight ? constraints.maxWidth : constraints.maxHeight}");
+    });
   }
 }

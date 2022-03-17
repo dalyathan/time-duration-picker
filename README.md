@@ -32,7 +32,7 @@ TimeDurationPicker(
     });
   })
 ```
-![](https://github.com/surafelMelese/time-duration-picker/raw/main/demos/demo1.gif)
+<!-- ![](https://github.com/surafelMelese/time-duration-picker/raw/main/demos/demo1.gif) -->
 ```dart
 TimeDurationPicker(
       diameter: 300,

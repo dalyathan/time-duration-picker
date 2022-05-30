@@ -57,7 +57,6 @@ class TimeDurationPicker extends StatelessWidget {
     this.clockTextStyle,
     this.onIconMove,
     this.twelveHourClock = true,
-
   }) : super(key: key);
 
   @override

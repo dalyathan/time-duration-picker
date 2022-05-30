@@ -86,7 +86,7 @@ class _KnobState extends State<Knob> {
                 ),
               ),
             ),
-            knob(
+            draggable(
               key: icon1Key,
               iconData: widget.icon1Data,
               offset: icon1Offset,
@@ -104,7 +104,7 @@ class _KnobState extends State<Knob> {
                 widget.onIcon1RotatedCallback(SimpleTime.fromAngle(icon1Angle));
               }
             ),
-            knob(
+            draggable(
               key: icon2Key,
               iconData: widget.icon2Data,
               offset: icon2Offset,
@@ -128,7 +128,7 @@ class _KnobState extends State<Knob> {
     );
   }
 
-  Widget knob({required Key key, required IconData iconData, required Offset offset, required Function(DragUpdateDetails) onPositionChanged,}){
+  Widget draggable({required Key key, required IconData iconData, required Offset offset, required Function(DragUpdateDetails) onPositionChanged,}){
     return Positioned(
       top: offset.dy,
       left: offset.dx,

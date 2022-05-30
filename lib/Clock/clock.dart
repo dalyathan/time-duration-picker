@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'clock_numbers.dart';
@@ -22,7 +24,9 @@ class Clock extends StatelessWidget {
       width: radius,
       height: radius,
       child: Center(
-        child: ClockNumbers(radius: radius, clockTextStyle: clockTextStyle, twelveHourClock: twelveHourClock,),
+        child: CustomPaint(painter:
+          ClockNumbers(radius: radius, clockTextStyle: clockTextStyle, twelveHourClock: twelveHourClock,)
+        )
       ),
       decoration: clockDecoration != null
         ? clockDecoration!.copyWith(shape: BoxShape.circle)

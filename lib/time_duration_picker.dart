@@ -14,7 +14,7 @@ class TimeDurationPicker extends StatelessWidget {
   final IconData icon2Data;
 
   /// Widget's total radius
-  final double radius;
+  final double size;
 
   /// Knob icon's colors
   final Color iconColor;
@@ -47,7 +47,7 @@ class TimeDurationPicker extends StatelessWidget {
     Key? key,
     required this.icon1Data,
     required this.icon2Data,
-    required this.radius,
+    required this.size,
     required this.onIcon1Move,
     required this.onIcon2Move,
     this.iconColor = Colors.white,
@@ -71,15 +71,15 @@ class TimeDurationPicker extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (radius <= constraints.maxWidth && radius <= constraints.maxHeight) {
+        if (size <= constraints.maxWidth && size <= constraints.maxHeight) {
           return Container(
-            width: radius,
-            height: radius,
+            width: size,
+            height: size,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Knob(
-                  radius: radius,
+                  radius: size,
                   innerRadiusRatio: knobInnerRadiusRatio,
                   outerRadiusRatio: knobOuterRadiusRatio,
                   onIcon1RotatedCallback: onIcon1Move,
@@ -92,7 +92,7 @@ class TimeDurationPicker extends StatelessWidget {
                 ),
                 Clock(
                   twelveHourClock: twelveHourClock,
-                  radius: radius * clockRatio,
+                  radius: size * clockRatio,
                   clockDecoration: clockDecoration,
                   clockTextStyle: clockTextStyle,
                 ),

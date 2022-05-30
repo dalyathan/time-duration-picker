@@ -39,6 +39,10 @@ class SimpleTime {
     return time;
   }
 
+  String toDuration(){
+    return "$hours hr $minutes min";
+  }
+
   String toAMPMString(){
     String median = this.hours > 12 ? "PM" : "AM";
 

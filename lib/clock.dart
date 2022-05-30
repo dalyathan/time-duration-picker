@@ -27,8 +27,8 @@ class Clock extends StatelessWidget {
       decoration: clockDecoration != null
         ? clockDecoration!.copyWith(shape: BoxShape.circle)
         : const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color.fromRGBO(241, 248, 255, 1),
+          shape: BoxShape.circle,
+          color: Color.fromRGBO(241, 248, 255, 1),
         ),
     );
   }

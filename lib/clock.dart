@@ -6,11 +6,14 @@ class Clock extends StatelessWidget {
   final double radius;
   final TextStyle? clockTextStyle;
   final BoxDecoration? clockDecoration;
+  final bool twelveHourClock;
+
   const Clock(
       {Key? key,
       required this.radius,
       this.clockTextStyle,
-      this.clockDecoration})
+      this.clockDecoration,
+      this.twelveHourClock = true})
       : super(key: key);
 
   @override
@@ -19,7 +22,7 @@ class Clock extends StatelessWidget {
       width: radius,
       height: radius,
       child: Center(
-        child: ClockNumbers(width: radius, clockTextStyle: clockTextStyle),
+        child: ClockNumbers(width: radius, clockTextStyle: clockTextStyle, twelveHourClock: twelveHourClock,),
       ),
       decoration: clockDecoration != null
           ? clockDecoration!.copyWith(shape: BoxShape.circle)

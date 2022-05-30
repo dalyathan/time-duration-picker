@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class ClockNumbers extends StatelessWidget {
   final double width;
   final TextStyle? clockTextStyle;
-  const ClockNumbers({Key? key, required this.width, this.clockTextStyle})
+  final bool twelveHourClock;
+  const ClockNumbers({Key? key, required this.width, this.clockTextStyle, this.twelveHourClock = true})
       : super(key: key);
 
   @override
@@ -60,11 +61,11 @@ class ClockNumbers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '6 PM',
+                twelveHourClock ? '6 PM' : '18',
                 style: textStyle,
               ),
               Text(
-                '6 AM',
+                twelveHourClock ? '6 AM' : '6',
                 style: textStyle,
               )
             ],
@@ -105,7 +106,7 @@ class ClockNumbers extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(bottom: width * 0.05),
           child: Text(
-            '12 PM',
+            twelveHourClock ? '12 PM' : '12',
             style: textStyle,
           ),
         )

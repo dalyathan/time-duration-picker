@@ -1,6 +1,7 @@
 library time_duration_picker;
 
 import 'package:flutter/material.dart';
+import 'package:time_duration_picker/simple_time.dart';
 
 import 'clock.dart';
 import 'knob.dart';
@@ -9,31 +10,31 @@ class TimeDurationPicker extends StatelessWidget {
   final IconData icon1Data;
   final IconData icon2Data;
   final double diameter;
-  final void Function(String) onIcon1RotatedCallback;
-  final void Function(String) onIcon2RotatedCallback;
   final Color iconColor;
-  final void Function(String)? setDurationCallback;
   final BoxDecoration? knobDecoration;
   final BoxDecoration? knobBackgroundDecoration;
   final BoxDecoration? clockDecoration;
   final TextStyle? clockTextStyle;
   final bool twelveHourClock;
+  final void Function(SimpleTime) onIcon1RotatedCallback;
+  final void Function(SimpleTime) onIcon2RotatedCallback;
+  final void Function(SimpleTime)? setDurationCallback;
 
-  const TimeDurationPicker(
-      {Key? key,
-      required this.icon1Data,
-      required this.icon2Data,
-      required this.diameter,
-      required this.onIcon1RotatedCallback,
-      required this.onIcon2RotatedCallback,
-      this.iconColor = Colors.white,
-      this.knobDecoration,
-      this.knobBackgroundDecoration,
-      this.clockDecoration,
-      this.clockTextStyle,
-      this.setDurationCallback,
-      this.twelveHourClock = true,})
-      : super(key: key);
+  const TimeDurationPicker({
+    Key? key,
+    required this.icon1Data,
+    required this.icon2Data,
+    required this.diameter,
+    required this.onIcon1RotatedCallback,
+    required this.onIcon2RotatedCallback,
+    this.iconColor = Colors.white,
+    this.knobDecoration,
+    this.knobBackgroundDecoration,
+    this.clockDecoration,
+    this.clockTextStyle,
+    this.setDurationCallback,
+    this.twelveHourClock = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +44,13 @@ class TimeDurationPicker extends StatelessWidget {
     double knobWidth = 0.175;
     double knobInnerRadiusRatio = clockRatio + innerGapRatio;
     double knobOuterRadiusRatio = knobInnerRadiusRatio + knobWidth;
-    assert(knobInnerRadiusRatio < knobOuterRadiusRatio &&
-        knobOuterRadiusRatio < 1);
+
+    assert(knobInnerRadiusRatio < knobOuterRadiusRatio && knobOuterRadiusRatio < 1);
+
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      if (diameter <= constraints.maxWidth &&
-          diameter <= constraints.maxHeight) {
-        return Container(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (diameter <= constraints.maxWidth && diameter <= constraints.maxHeight) {
+          return Container(
             width: diameter,
             height: diameter,
             child: Stack(
@@ -81,15 +82,13 @@ class TimeDurationPicker extends StatelessWidget {
               ],
             ),
             decoration: knobBackgroundDecoration != null
-                ? knobBackgroundDecoration!.copyWith(
-                    shape: BoxShape.circle,
-                  )
-                : const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ));
+              ? knobBackgroundDecoration!.copyWith(shape: BoxShape.circle,)
+              : const BoxDecoration(shape: BoxShape.circle,)
+          );
+        }
+
+        throw Exception("Max allowed size is ${constraints.maxWidth < constraints.maxHeight ? constraints.maxWidth : constraints.maxHeight}");
       }
-      throw Exception(
-          "Max allowed size is ${constraints.maxWidth < constraints.maxHeight ? constraints.maxWidth : constraints.maxHeight}");
-    });
+    );
   }
 }

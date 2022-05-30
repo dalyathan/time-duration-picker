@@ -9,7 +9,7 @@ import 'Knob/knob.dart';
 class TimeDurationPicker extends StatelessWidget {
   final IconData icon1Data;
   final IconData icon2Data;
-  final double diameter;
+  final double radius;
   final Color iconColor;
   final BoxDecoration? knobDecoration;
   final BoxDecoration? knobBackgroundDecoration;
@@ -24,7 +24,7 @@ class TimeDurationPicker extends StatelessWidget {
     Key? key,
     required this.icon1Data,
     required this.icon2Data,
-    required this.diameter,
+    required this.radius,
     required this.onIcon1RotatedCallback,
     required this.onIcon2RotatedCallback,
     this.iconColor = Colors.white,
@@ -34,30 +34,30 @@ class TimeDurationPicker extends StatelessWidget {
     this.clockTextStyle,
     this.setDurationCallback,
     this.twelveHourClock = true,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double clockRatio = 0.6;
-    double gapRatio = 0.05;
-    double innerGapRatio = 0.175;
-    double knobWidth = 0.175;
-    double knobInnerRadiusRatio = clockRatio + innerGapRatio;
+    double clockKnobGap = 0.1;
+    double knobWidth = 0.9 - (clockRatio + clockKnobGap);
+    double knobInnerRadiusRatio = clockRatio + clockKnobGap + 0.1;
     double knobOuterRadiusRatio = knobInnerRadiusRatio + knobWidth;
 
-    assert(knobInnerRadiusRatio < knobOuterRadiusRatio && knobOuterRadiusRatio < 1);
+    assert(knobInnerRadiusRatio < knobOuterRadiusRatio && knobOuterRadiusRatio <= 1);
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        if (diameter <= constraints.maxWidth && diameter <= constraints.maxHeight) {
+        if (radius <= constraints.maxWidth && radius <= constraints.maxHeight) {
           return Container(
-            width: diameter,
-            height: diameter,
+            width: radius,
+            height: radius,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Knob(
-                  radius: diameter,
+                  radius: radius,
                   innerRadiusRatio: knobInnerRadiusRatio,
                   outerRadiusRatio: knobOuterRadiusRatio,
                   onIcon1RotatedCallback: onIcon1RotatedCallback,
@@ -68,16 +68,16 @@ class TimeDurationPicker extends StatelessWidget {
                   knobDecoration: knobDecoration,
                   setDurationCallback: setDurationCallback,
                 ),
-                Padding(
-                  padding: EdgeInsets.all(diameter * gapRatio),
+                /*Padding(
+                  padding: EdgeInsets.all(radius * gapRatio),
                   child: Center(
-                    child: Clock(
+                    child: */Clock(
                       twelveHourClock: twelveHourClock,
-                      radius: diameter * clockRatio,
+                      radius: radius * clockRatio,
                       clockDecoration: clockDecoration,
                       clockTextStyle: clockTextStyle,
-                    ),
-                  ),
+                    //),
+                  //),
                 ),
               ],
             ),

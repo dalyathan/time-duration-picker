@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:time_duration_picker/simple_time.dart';
+import 'package:time_duration_picker/Utils/simple_time.dart';
 
 import 'knob_clipper.dart';
 

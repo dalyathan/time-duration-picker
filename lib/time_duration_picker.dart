@@ -1,10 +1,10 @@
 library time_duration_picker;
 
 import 'package:flutter/material.dart';
-import 'package:time_duration_picker/simple_time.dart';
+import 'package:time_duration_picker/Utils/simple_time.dart';
 
-import 'clock.dart';
-import 'knob.dart';
+import 'Clock/clock.dart';
+import 'Knob/knob.dart';
 
 class TimeDurationPicker extends StatelessWidget {
   final IconData icon1Data;

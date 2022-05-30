@@ -1,132 +1,76 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class ClockNumbers extends StatelessWidget {
+class ClockNumbers extends CustomPainter {
   final double radius;
   final TextStyle? clockTextStyle;
   final bool twelveHourClock;
-  const ClockNumbers({Key? key, required this.radius, this.clockTextStyle, this.twelveHourClock = true})
-      : super(key: key);
+
+  const ClockNumbers({
+    required this.radius,
+    this.clockTextStyle,
+    this.twelveHourClock = true
+  });
 
   @override
-  Widget build(BuildContext context) {
+  void paint(Canvas canvas, Size size) {
+    const double _kPiByTwo = pi / 2;
+    const double _kTwoPi = 2 * pi;
+    final Offset center = Offset(size.width / 2.0, size.height / 2.0);
+
+    // Get the offset point for an angle value of theta, and a distance of _radius
+    Offset getOffsetForTheta(double theta, double _radius) {
+      return center + Offset(_radius * cos(theta), -_radius * sin(theta));
+    }
+
     double fontSize = radius * 0.08;
     TextStyle textStyle = clockTextStyle != null
       ? clockTextStyle!.copyWith(fontSize: fontSize)
       : TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: radius * 0.02),
-          child: Text(
-            twelveHourClock ? '12 AM' : '0',
-            style: textStyle,
-          ),
-        ),
+    List<String> hours = <String>[
+      twelveHourClock ? "12 AM" : "0",
+      "2",
+      "4",
+      twelveHourClock ? "6 AM" : "6",
+      "8",
+      "10",
+      twelveHourClock ? "12 PM" : "12",
+      twelveHourClock ? "2" : "14",
+      twelveHourClock ? "4" : "16",
+      twelveHourClock ? "6 PM" : "18",
+      twelveHourClock ? "8" : "20",
+      twelveHourClock ? "10" : "22",
+    ];
 
+    // Converting String to TextPainter
+    final List<TextPainter> labels = <TextPainter>[];
+    for (String value in hours) {
+      var painter = TextPainter(
+        text: TextSpan(style: textStyle, text: value),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      labels.add(painter);
+    }
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: radius * 0.2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                twelveHourClock ? '10' : '22',
-                style: textStyle,
-              ),
-              Text(
-                '2',
-                style: textStyle,
-              )
-            ],
-          ),
-        ),
+    // Paint the labels
+    void paintLabels(List<TextPainter> labels) {
+      final double labelThetaIncrement = -_kTwoPi / labels.length;
+      double labelTheta = _kPiByTwo;
 
-        const SizedBox(height: 30),
+      for (TextPainter label in labels) {
+        final Offset labelOffset = Offset(-label.width / 2.0, -label.height / 2.0);
+        label.paint(canvas, getOffsetForTheta(labelTheta, (radius/2) - 40.0) + labelOffset);
+        labelTheta += labelThetaIncrement;
+      }
+    }
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: radius * 0.06),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                twelveHourClock ? '8' : '20',
-                style: textStyle,
-              ),
-              Text(
-                '4',
-                style: textStyle,
-              )
-            ],
-          ),
-        ),
+    paintLabels(labels);
+  }
 
-        const SizedBox(height: 35),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: radius * 0.02),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                twelveHourClock ? '6 PM' : '18',
-                style: textStyle,
-              ),
-              Text(
-                twelveHourClock ? '6 AM' : '6',
-                style: textStyle,
-              )
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 35),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: radius * 0.06),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                twelveHourClock ? '4' : '16',
-                style: textStyle,
-              ),
-              Text(
-                '8',
-                style: textStyle,
-              )
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 30),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: radius * 0.2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                twelveHourClock ? '2' : '14',
-                style: textStyle,
-              ),
-              Text(
-                '10',
-                style: textStyle,
-              )
-            ],
-          ),
-        ),
-
-        Padding(
-          padding: EdgeInsets.only(bottom: radius * 0.02),
-          child: Text(
-            twelveHourClock ? '12 PM' : '12',
-            style: textStyle,
-          ),
-        )
-      ],
-    );
+  @override
+  bool shouldRepaint(ClockNumbers oldDelegate) {
+    return false;
   }
 }

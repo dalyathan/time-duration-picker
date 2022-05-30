@@ -6,25 +6,27 @@ class SimpleTime {
 
   SimpleTime.fromTime(this.hours, this.minutes);
 
-  SimpleTime.fromAngle(double angle){
-    int pastNoon = angle >= pi ? 12 : 0;
-
+  SimpleTime.fromAngle(double angle){ //angle in radians
     double angleInDegrees = angle * (180 / pi);
     int timeSinceMidday = (angleInDegrees.toInt() / 0.5) as int;
 
     hours = (timeSinceMidday / 30).floor();
     minutes = timeSinceMidday - 30 * hours;
-
-    hours += pastNoon;
   }
 
   SimpleTime.fromTimeBetweenAngles(double angle1, double angle2){
     SimpleTime time1 = SimpleTime.fromAngle(angle1);
     SimpleTime time2 = SimpleTime.fromAngle(angle2);
 
-    //todo: difference
-    hours = time1.hours - time2.hours;
-    minutes = time1.minutes - time2.minutes;
+    hours = time1.hours == time2.hours ? 24 : time2.hours + ((time1.hours > time2.hours ? 24 : 0) - time1.hours);
+
+    if(time1.minutes > time2.minutes) {
+      minutes = (60 - time1.minutes) + time2.minutes;
+      hours--;
+    }
+    else {
+      minutes = time2.minutes - time1.minutes;
+    }
   }
 
   @override

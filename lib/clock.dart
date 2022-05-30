@@ -8,13 +8,13 @@ class Clock extends StatelessWidget {
   final BoxDecoration? clockDecoration;
   final bool twelveHourClock;
 
-  const Clock(
-      {Key? key,
-      required this.radius,
-      this.clockTextStyle,
-      this.clockDecoration,
-      this.twelveHourClock = true})
-      : super(key: key);
+  const Clock({
+    Key? key,
+    required this.radius,
+    this.clockTextStyle,
+    this.clockDecoration,
+    this.twelveHourClock = true
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,11 @@ class Clock extends StatelessWidget {
         child: ClockNumbers(width: radius, clockTextStyle: clockTextStyle, twelveHourClock: twelveHourClock,),
       ),
       decoration: clockDecoration != null
-          ? clockDecoration!.copyWith(shape: BoxShape.circle)
-          : const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color.fromRGBO(241, 248, 255, 1),
-            ),
+        ? clockDecoration!.copyWith(shape: BoxShape.circle)
+        : const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color.fromRGBO(241, 248, 255, 1),
+        ),
     );
   }
 }

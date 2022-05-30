@@ -19,7 +19,7 @@ class ClockNumbers extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: width * 0.05),
           child: Text(
-            '12 AM',
+            twelveHourClock ? '12 AM' : '00',
             style: textStyle,
           ),
         ),
@@ -29,7 +29,7 @@ class ClockNumbers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '10',
+                twelveHourClock ? '10' : '22',
                 style: textStyle,
               ),
               Text(
@@ -45,7 +45,7 @@ class ClockNumbers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '8',
+                twelveHourClock ? '8' : '20',
                 style: textStyle,
               ),
               Text(
@@ -77,7 +77,7 @@ class ClockNumbers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '4',
+                twelveHourClock ? '4' : '16',
                 style: textStyle,
               ),
               Text(
@@ -93,7 +93,7 @@ class ClockNumbers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '2',
+                twelveHourClock ? '2' : '14',
                 style: textStyle,
               ),
               Text(

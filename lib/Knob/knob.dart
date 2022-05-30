@@ -16,6 +16,8 @@ class Knob extends StatefulWidget {
   final void Function(SimpleTime) onIcon1RotatedCallback;
   final void Function(SimpleTime) onIcon2RotatedCallback;
   final void Function(SimpleTime)? setDurationCallback;
+  final SimpleTime? icon1InitialValue;
+  final SimpleTime? icon2InitialValue;
 
   const Knob({
     Key? key,
@@ -28,7 +30,9 @@ class Knob extends StatefulWidget {
     required this.icon2Data,
     required this.iconColor,
     this.setDurationCallback,
-    this.knobDecoration
+    this.knobDecoration,
+    this.icon1InitialValue,
+    this.icon2InitialValue,
   }) : super(key: key);
 
   @override
@@ -58,9 +62,11 @@ class _KnobState extends State<Knob> {
     double centerOffset = widget.radius * (0.5 - iconWidthRatio * 0.5);
     boxCenter = Offset(centerOffset, centerOffset);
     icon1Offset = icon2Offset = Offset(widget.radius * (widget.innerRadiusRatio + (1 - widget.outerRadiusRatio) * 0.5 + (knobWidthRatio - iconWidthRatio) * 0.5), centerOffset);
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _initializeOffsetsAndAngles(context));
-    icon1Angle = 0;
-    icon2Angle = pi;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initializeOffsetsAndAngles(context));
+
+    icon1Angle = widget.icon1InitialValue?.toRadianAngle() ?? 0;
+    icon2Angle = widget.icon2InitialValue?.toRadianAngle() ?? pi;
   }
 
   @override

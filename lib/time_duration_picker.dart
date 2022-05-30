@@ -34,6 +34,12 @@ class TimeDurationPicker extends StatelessWidget {
   /// Set this to true to have a clock using AM-PM
   final bool twelveHourClock;
 
+  /// First icon's initial value
+  final SimpleTime? icon1InitialValue;
+
+  /// Second icon's initial value
+  final SimpleTime? icon2InitialValue;
+
   /// Called back when the first icon is moved
   final void Function(SimpleTime) onIcon1Move;
 
@@ -57,6 +63,8 @@ class TimeDurationPicker extends StatelessWidget {
     this.clockTextStyle,
     this.onIconMove,
     this.twelveHourClock = true,
+    this.icon1InitialValue,
+    this.icon2InitialValue,
   }) : super(key: key);
 
   @override
@@ -80,6 +88,8 @@ class TimeDurationPicker extends StatelessWidget {
               children: [
                 Knob(
                   radius: size,
+                  icon1InitialValue: icon1InitialValue,
+                  icon2InitialValue: icon2InitialValue,
                   innerRadiusRatio: knobInnerRadiusRatio,
                   outerRadiusRatio: knobOuterRadiusRatio,
                   onIcon1RotatedCallback: onIcon1Move,

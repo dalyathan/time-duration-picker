@@ -10,7 +10,7 @@ class SimpleTime {
     double angleInDegrees = angle * (180 / pi);
     int timeSinceMidday = (angleInDegrees.toInt() / 0.5) as int;
 
-    hours = (timeSinceMidday / 30).floor();
+    hours = (timeSinceMidday / 30).floor(); //30 because we want 1 graduation = 2 minutes. On the clock, 1 "real" hour = 2 hours
     minutes = timeSinceMidday - 30 * hours;
   }
 
@@ -27,6 +27,14 @@ class SimpleTime {
     else {
       minutes = time2.minutes - time1.minutes;
     }
+  }
+
+  double toRadianAngle(){
+    return toDegreeAngle() * (pi/180);
+  }
+
+  double toDegreeAngle(){
+    return 0.5 * (hours * 30 + minutes); //30 because we want 1 graduation = 2 minutes. On the clock, 1 "real" hour = 2 hours
   }
 
   @override

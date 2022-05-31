@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:time_duration_picker/time_duration_picker.dart';
 import 'alarm_description.dart';
+import 'package:time_duration_picker/Utils/simple_time.dart';
 
 class SetAlarm extends StatefulWidget {
   const SetAlarm({Key? key}) : super(key: key);
@@ -28,27 +29,29 @@ class _SetAlarmState extends State<SetAlarm> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: size.width * horizontalPadding,
-                vertical: size.height * verticalPadding
+              horizontal: size.width * horizontalPadding,
+              vertical: size.height * verticalPadding
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: size.height * smallerMarginRatio),
                 TimeDurationPicker(
+                  icon1InitialValue: SimpleTime.fromTime(0, 0),
+                  icon2InitialValue: SimpleTime.fromTime(12, 0),
                   size: size.width * 0.775,
                   icon1Data: Icons.notifications_none,
                   icon2Data: Icons.bed,
                   knobDecoration: const BoxDecoration(
-                      color: Color.fromRGBO(167, 153, 240, 1)
+                    color: Color.fromRGBO(167, 153, 240, 1)
                   ),
                   clockDecoration: const BoxDecoration(
-                      gradient: RadialGradient(
-                          colors: [
-                            Color.fromRGBO(167, 153, 240, 1),
-                            Colors.white
-                          ]
-                      )
+                    gradient: RadialGradient(
+                      colors: [
+                        Color.fromRGBO(167, 153, 240, 1),
+                        Colors.white
+                      ]
+                    )
                   ),
                   knobBackgroundDecoration: const BoxDecoration(
                     shape: BoxShape.circle,
@@ -91,16 +94,16 @@ class _SetAlarmState extends State<SetAlarm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AlarmDescription(
-                        iconData: Icons.bed,
-                        title: "Bedtime",
-                        width: size.width * 0.4,
-                        time: bedTime
+                      iconData: Icons.bed,
+                      title: "Bedtime",
+                      width: size.width * 0.4,
+                      time: bedTime
                     ),
                     AlarmDescription(
-                        iconData: Icons.notifications_none,
-                        title: "Wake Up",
-                        width: size.width * 0.4,
-                        time: alarmTime
+                      iconData: Icons.notifications_none,
+                      title: "Wake Up",
+                      width: size.width * 0.4,
+                      time: alarmTime
                     )
                   ],
                 ),

@@ -61,7 +61,7 @@ class ClockNumbers extends CustomPainter {
 
       for (TextPainter label in labels) {
         final Offset labelOffset = Offset(-label.width / 2.0, -label.height / 2.0);
-        label.paint(canvas, getOffsetForTheta(labelTheta, (radius/2) - 40.0) + labelOffset);
+        label.paint(canvas, getOffsetForTheta(labelTheta, (radius/2.5)) + labelOffset);
         labelTheta += labelThetaIncrement;
       }
     }

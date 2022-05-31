@@ -10,9 +10,9 @@ class KnobClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     double sweepAngle = endAngle - startAngle;
-    if (sweepAngle < 0) {
-      sweepAngle = 2 * pi + (endAngle - startAngle);
-    }
+
+    if (sweepAngle < 0) sweepAngle = 2 * pi + (endAngle - startAngle);
+
     double radius = size.width / 2;
     Offset center = Offset(radius, radius);
 
@@ -35,7 +35,9 @@ class KnobClipper extends CustomClipper<Path> {
             (radius - (radius - brushSize * 0.5) * cos(startAngle + pi / 2)),
             (radius - (radius - brushSize * 0.5) * sin(startAngle + pi / 2)),
           ),
-          radius: brushSize * 0.5));
+          radius: brushSize * 0.5
+        )
+      );
 
     Path endIconBackground = Path()
       ..addOval(Rect.fromCircle(
@@ -43,20 +45,22 @@ class KnobClipper extends CustomClipper<Path> {
             (radius - (radius - brushSize * 0.5) * cos(endAngle + pi / 2)),
             (radius - (radius - brushSize * 0.5) * sin(endAngle + pi / 2)),
           ),
-          radius: brushSize * 0.5));
+          radius: brushSize * 0.5
+        )
+      );
 
     Path outerCirclePath = Path()
-      ..addArc(Rect.fromCircle(center: center, radius: radius),
-          startAngle - pi / 2, sweepAngle);
+      ..addArc(Rect.fromCircle(center: center, radius: radius), startAngle - pi / 2, sweepAngle);
 
     return Path.combine(
+      PathOperation.union,
+      startIconBackground,
+      Path.combine(
         PathOperation.union,
-        startIconBackground,
-        Path.combine(
-          PathOperation.union,
-          endIconBackground,
-          Path.combine(PathOperation.xor, trianglePath, outerCirclePath),
-        ));
+        endIconBackground,
+        Path.combine(PathOperation.xor, trianglePath, outerCirclePath),
+      )
+    );
   }
 
   @override

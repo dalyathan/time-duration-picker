@@ -36,12 +36,12 @@ TimeDurationPicker(
           color: Colors.teal, fontWeight: FontWeight.bold),
       onIcon1RotatedCallback: (value) {
         setState(() {
-          alarmTime = value;
+          goTime = value;
         });
       },
       onIcon2RotatedCallback: (value) {
         setState(() {
-          bedTime = value;
+          gasTime = value;
         });
       },),
 ```
@@ -73,12 +73,12 @@ TimeDurationPicker(
   ),
   onIcon1RotatedCallback: (value) {
     setState(() {
-      alarmTime = value;
+      schoolTime = value;
     });
   },
   onIcon2RotatedCallback: (value) {
     setState(() {
-      bedTime = value;
+      homeTime = value;
     });
   },
   setDurationCallback: (value) {

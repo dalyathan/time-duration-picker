@@ -49,6 +49,19 @@ class _KnobState extends State<Knob> {
   void initState() {
     super.initState();
     _initalizeValues();
+    print('initstate');
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    _initalizeValues();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.dependOnInheritedWidgetOfExactType();
   }
 
   void _initalizeValues() {
@@ -62,7 +75,7 @@ class _KnobState extends State<Knob> {
                 (1 - widget.outerRadiusRatio) * 0.5 +
                 (knobWidthRatio - iconWidthRatio) * 0.5),
         centerOffset);
-    WidgetsBinding.instance!
+    WidgetsBinding.instance
         .addPostFrameCallback((_) => _initializeOffsetsAndAngles(context));
     icon1Angle = 0;
     icon2Angle = pi;
@@ -70,7 +83,8 @@ class _KnobState extends State<Knob> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
+    return OrientationBuilder(builder: (_context, orientation) {
+      // final e = Orienta
       return Stack(
         children: [
           Padding(

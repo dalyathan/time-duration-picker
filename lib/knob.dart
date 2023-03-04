@@ -49,7 +49,6 @@ class _KnobState extends State<Knob> {
   void initState() {
     super.initState();
     _initalizeValues();
-    print('initstate');
   }
 
   @override
